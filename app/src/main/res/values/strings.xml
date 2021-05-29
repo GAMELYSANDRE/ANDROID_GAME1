@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Ti-Ta-To</string>
+    <string-array name="number_players">
+        <item>1 Joueur</item>
+        <item>2 Joueurs</item>
+    </string-array>
 </resources>

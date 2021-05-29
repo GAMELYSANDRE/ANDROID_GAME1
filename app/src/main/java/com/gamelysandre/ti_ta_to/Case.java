@@ -74,16 +74,16 @@ public class Case extends View
             case CROSS:
                 this.m_Paint.setColor(0xff880000);
                 Path rect1 = new Path();
-                rect1.moveTo(70,50);
-                rect1.lineTo(m_Side-50,m_Side-70);
-                rect1.lineTo(m_Side-70,m_Side-50);
-                rect1.lineTo(50,70);
+                rect1.moveTo((int) (m_Side*0.2),(int) (m_Side*0.15));
+                rect1.lineTo((int) (m_Side*0.85),(int) (m_Side*0.8));
+                rect1.lineTo((int) (m_Side*0.8),(int) (m_Side*0.85));
+                rect1.lineTo((int) (m_Side*0.15),(int) (m_Side*0.2));
                 m_Canvas.drawPath(rect1,m_Paint);
                 Path rect2 = new Path();
-                rect2.moveTo(m_Side-70,50);
-                rect2.lineTo(m_Side-50,70);
-                rect2.lineTo(70,m_Side-50);
-                rect2.lineTo(50,m_Side-70);
+                rect2.moveTo((int) (m_Side*0.8),(int) (m_Side*0.15));
+                rect2.lineTo((int) (m_Side*0.85),(int) (m_Side*0.2));
+                rect2.lineTo((int) (m_Side*0.2),(int) (m_Side*0.85));
+                rect2.lineTo((int) (m_Side*0.15),(int) (m_Side*0.8));
                 m_Canvas.drawPath(rect2,m_Paint);
                 break;
         }
