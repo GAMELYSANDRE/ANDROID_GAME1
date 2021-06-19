@@ -14,7 +14,28 @@ public class Case extends View
     private Paint m_Paint;
     private Canvas m_Canvas;
     private int m_Side;
+
+
     private Symbol m_Type;
+
+    /**
+     *  type of symbol
+     * @return
+     */
+    public Symbol getType()
+    {
+        return m_Type;
+    }
+
+    /**
+     * change symbol
+     * @param type
+     */
+    public void setType(Symbol type)
+    {
+        m_Type = type;
+        postInvalidate();
+    }
 
     public int getSide()
     {
@@ -24,6 +45,7 @@ public class Case extends View
     public void setSide(int side)
     {
         m_Side = side;
+
     }
 
 

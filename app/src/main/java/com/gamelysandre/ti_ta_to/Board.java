@@ -1,11 +1,14 @@
 package com.gamelysandre.ti_ta_to;
 
 import android.app.Activity;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 public class Board implements View.OnClickListener
@@ -23,6 +26,23 @@ public class Board implements View.OnClickListener
     private static final int SPACING = 50;
     private ConstraintLayout m_AppScreen;
 
+    // possibility of winning
+    private int [][] win = {
+            {0,1,2},
+            {3,4,5},
+            {6,7,8},
+            {0,3,6},
+            {1,4,7},
+            {2,5,8},
+            {0,4,8},
+            {6,4,2}
+    };
+
+    public boolean isPlayer()
+    {
+        return m_Player;
+    }
+
     // variable player
     private boolean m_Player;
 
@@ -30,14 +50,19 @@ public class Board implements View.OnClickListener
     private MediaPlayer m_SndCross;
     private MediaPlayer m_SndCircle;
 
+    /**
+     * Constructor
+     *
+     * @param activity
+     */
     public Board(Activity activity)
     {
         m_Player = true;
         m_Activity = activity;
         DimensionScreen(activity);
         m_AppScreen = (ConstraintLayout) activity.findViewById(R.id.ScreenApp);
-        m_SndCross = MediaPlayer.create(m_Activity,R.raw.cross);
-        m_SndCircle = MediaPlayer.create(m_Activity,R.raw.circle);
+        m_SndCross = MediaPlayer.create(m_Activity, R.raw.cross);
+        m_SndCircle = MediaPlayer.create(m_Activity, R.raw.circle);
         CreateBoard();
     }
 
@@ -102,12 +127,47 @@ public class Board implements View.OnClickListener
         {
             m_Case[caseIndex].setSymbol(Symbol.CIRCLE);
             m_SndCircle.start();
-        }
-        else
+        } else
         {
             m_Case[caseIndex].setSymbol(Symbol.CROSS);
             m_SndCross.start();
         }
         m_Player = !m_Player;
+        winner();
     }
+
+    public int winner()
+    {
+        for (int i = 0; i < win.length; i++)
+        {
+            if (( m_Case[win[i][0]].getType() == Symbol.CIRCLE &&
+                  m_Case[win[i][1]].getType() == Symbol.CIRCLE &&
+                  m_Case[win[i][2]].getType() == Symbol.CIRCLE)
+            )
+            {
+                //Log.d("DEBUG", " Win joueur 1");
+                //endGame("joueur 1");
+                return 1;
+            }
+            if (( m_Case[win[i][0]].getType() == Symbol.CROSS &&
+                    m_Case[win[i][1]].getType() == Symbol.CROSS &&
+                    m_Case[win[i][2]].getType() == Symbol.CROSS)
+            )
+            {
+                //Log.d("DEBUG", " Win joueur 2");
+                //endGame("joueur 2");
+                return 2;
+            }
+        }
+        return 0;
+    }
+
+    public void reset()
+    {
+        for (Case index : m_Case)
+        {
+            index.setType(Symbol.EMPTY);
+        }
+    }
+
 }
